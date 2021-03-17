@@ -1,5 +1,7 @@
 #roulette
 
+import os
+
 import random
 x = random.randint(0, 36)
 
@@ -156,6 +158,7 @@ def betFunc():
             print("Cancelled.")           
 
 betFunc()
+os.system("pause")
 
 #TO DO
 """
