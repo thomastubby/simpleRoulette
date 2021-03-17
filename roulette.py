@@ -159,9 +159,7 @@ betFunc()
 
 #TO DO
 """
--When betting on color, you lose money even on desired outcome
-
--When betting number, not entirely sure if it works yet
 
 -Make outcome affect original bankroll
+
 """
