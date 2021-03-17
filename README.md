@@ -1,5 +1,5 @@
 # simpleRoulette
-a simple script i wrote that determines the outcomes of various user inputs regarding roulette
+a simple script that determines the outcomes of various user inputs regarding roulette
 
 This script is a simple roulette game.
 
