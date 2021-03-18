@@ -1,17 +1,11 @@
 #roulette
 
-import os
-
 import random
 x = random.randint(0, 36)
 
 bankRoll = 1000
 
 #VARLIST#
-betPrompt = input("Tubby Roulette - Color, Number, or Third? ")
-
-betPrompt = betPrompt.lower().strip()
-
 colorList = ["green", "black", "red"]
 
 firstThird = range(1, 12)
@@ -24,6 +18,14 @@ thirdList = ["first", "second", "third"]
 #########
 
 #Defines betting amount
+def roulette():
+    global betPrompt
+    betPrompt = input("Tubby Roulette - Color, Number, or Third? ")
+
+    betPrompt = betPrompt.lower().strip()
+    
+    betFunc()
+
 def betPriceFunc():
     global betAmount
     betAmount = input("How much would you like to bet? ")
@@ -34,33 +36,39 @@ def colorWin():
     print("You won" + " $" + str(betAmount) + "!")
     newBankRoll = int(bankRoll) + int(betAmount)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 def colorLose():
     print("You lost " + str(betAmount) + "!")
     newBankRoll = int(bankRoll) - int(betAmount)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 #Win/Lose for third
 def thirdWin():
     print("You won" + " $" + str(betAmount) + "!")
     newBankRoll = int(bankRoll) + (int(betAmount) * 2)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 def thirdLose():
     print("You lost " + str(betAmount) + "!")
     newBankRoll = int(bankRoll) - int(betAmount)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 #Win/Lose for number
 def numberWin():
     print("You won" + " $" + str(betAmount) + "!")
     newBankRoll = int(bankRoll) + (int(betAmount) * 35)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 def numberLose():
     print("You lost " + str(betAmount) + "!")
     newBankRoll = int(bankRoll) - int(betAmount)
     print("Your bankroll is now" + " $" + str(newBankRoll))
+    playAgainFunc()
 
 #Generates random number assigned to color, "spins"
 def spinFunc():
@@ -79,6 +87,20 @@ def spinFunc():
     if x == 0:
         print("Green, " + str(x))
 
+#Allows user to play again
+def playAgainFunc():
+    
+    playAgain = input("Play again? Y/N ")
+
+    playAgain == playAgain.lower()
+    
+    if playAgain in ("yes", "y"):
+        roulette()
+    else:
+        pass
+    
+
+#Roulette game
 def betFunc():
 
     if betPrompt == "color":
@@ -158,5 +180,4 @@ def betFunc():
         else:
             print("Cancelled.")           
 
-betFunc()
-os.system("pause")
+roulette()
