@@ -13,4 +13,5 @@ This script is a simple roulette game.
 4. Enter your bet (Note: Anything that isnt an integer will cause an error)
 
 **TO DO**
- -Dynamic Bankroll
+
+Dynamic Bankroll
