@@ -1,4 +1,4 @@
-#roulette
+# roulette
 
 import random
 
@@ -20,10 +20,12 @@ thirdThird = range(25, 36)
 
 #########
 
+
 def bankrollLose():
     print("You lost " + str(betAmount) + "!")
     betLose = (int(bankRoll) - int(betAmount))
     print("Your bankroll is now" + " $" + str(betLose))
+
 
 def betPriceFunc():
     global betAmount
@@ -31,40 +33,46 @@ def betPriceFunc():
     spinFunc()
 
 
-#Win/Lose for color
+# Win/Lose for color
 def colorWin():
     print("You won" + " $" + str(betAmount) + "!")
     betWin = bankRoll + int(betAmount)
     print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
+
 def colorLose():
     bankrollLose()
     playAgainFunc()
 
-#Win/Lose for third
+
+# Win/Lose for third
 def thirdWin():
     print("You won" + " $" + str(int(betAmount) * 2) + "!")
     betWin = bankRoll + (int(betAmount) * 2)
     print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
+
 def thirdLose():
     bankrollLose()
     playAgainFunc()
 
-#Win/Lose for number
+
+# Win/Lose for number
 def numberWin():
     print("You won" + " $" + str(int(betAmount) * 35) + "!")
     betWin = bankRoll + (int(betAmount) * 35)
     print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
+
 def numberLose():
     bankrollLose()
     playAgainFunc()
 
-#Invalid Selection
+
+# Invalid Selection
 def invalidFunc():
     tryAgain = input("Invalid selection, try again? Y/N ")
     if tryAgain in ["yes", "y"]:
@@ -72,7 +80,8 @@ def invalidFunc():
     else:
         print("Cancelled.")
 
-#Generates random number assigned to color, "spins"
+
+# Generates random number assigned to color, "spins"
 def spinFunc():
     
     global x
@@ -92,7 +101,8 @@ def spinFunc():
     if x == 0:
         print("Green, " + str(x))
 
-#Roulette game
+
+# Roulette game
 def rouletteFunc():
     
     global betPrompt
@@ -183,7 +193,8 @@ def rouletteFunc():
     else:
         invalidFunc()
 
-#Allows user to play again
+
+# Allows user to play again
 def playAgainFunc():
     
     playAgain = input("Play again? Y/N ")
@@ -195,11 +206,10 @@ def playAgainFunc():
     elif playAgain in ("no", "n"):
         print("Cancelled.")
     else:
-        playAgainFunc()
+        pass
         
-    
 
-#INVALID OPTIONS
+# INVALID OPTIONS
     
     if betPrompt.lower() not in choiceList:
         invalidFunc()         
