@@ -10,7 +10,7 @@ This script is a simple roulette game.
 
 3. Follow prompt and pick subcategory of previous input (red/black, first/second, etc)
 
-4. Enter your bet (Note: Anything that isnt an integer will cause an error)
+4. Enter your bet (Starting bankroll is $1000)
 
 **TO DO**
 
