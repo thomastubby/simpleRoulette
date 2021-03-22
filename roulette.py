@@ -1,12 +1,16 @@
 #roulette
 
 import random
-x = random.randint(0, 36)
 
+#######
 bankRoll = 1000
+#######
 
-#VARLIST#
+choiceList = ["color", "third", "number"]
+
 colorList = ["green", "black", "red"]
+
+thirdList = ["first", "second", "third"]
 
 firstThird = range(1, 12)
 
@@ -14,64 +18,65 @@ secondThird = range(13, 24)
 
 thirdThird = range(25, 36)
 
-thirdList = ["first", "second", "third"]
 #########
 
-#Defines betting amount
-def roulette():
-    global betPrompt
-    betPrompt = input("Tubby Roulette - Color, Number, or Third? ")
-
-    betPrompt = betPrompt.lower().strip()
-    
-    betFunc()
+def bankrollLose():
+    print("You lost " + str(betAmount) + "!")
+    betLose = (int(bankRoll) - int(betAmount))
+    print("Your bankroll is now" + " $" + str(betLose))
 
 def betPriceFunc():
     global betAmount
     betAmount = input("How much would you like to bet? ")
     spinFunc()
 
+
 #Win/Lose for color
 def colorWin():
     print("You won" + " $" + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) + int(betAmount)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    betWin = bankRoll + int(betAmount)
+    print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
 def colorLose():
-    print("You lost " + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) - int(betAmount)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    bankrollLose()
     playAgainFunc()
 
 #Win/Lose for third
 def thirdWin():
-    print("You won" + " $" + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) + (int(betAmount) * 2)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    print("You won" + " $" + str(int(betAmount) * 2) + "!")
+    betWin = bankRoll + (int(betAmount) * 2)
+    print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
 def thirdLose():
-    print("You lost " + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) - int(betAmount)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    bankrollLose()
     playAgainFunc()
 
 #Win/Lose for number
 def numberWin():
-    print("You won" + " $" + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) + (int(betAmount) * 35)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    print("You won" + " $" + str(int(betAmount) * 35) + "!")
+    betWin = bankRoll + (int(betAmount) * 35)
+    print("Your bankroll is now" + " $" + str(betWin))
     playAgainFunc()
 
 def numberLose():
-    print("You lost " + str(betAmount) + "!")
-    newBankRoll = int(bankRoll) - int(betAmount)
-    print("Your bankroll is now" + " $" + str(newBankRoll))
+    bankrollLose()
     playAgainFunc()
+
+#Invalid Selection
+def invalidFunc():
+    tryAgain = input("Invalid selection, try again? Y/N ")
+    if tryAgain in ["yes", "y"]:
+        rouletteFunc()
+    else:
+        print("Cancelled.")
 
 #Generates random number assigned to color, "spins"
 def spinFunc():
+    
+    global x
+    x = random.randint(0, 36)
     
     global black
     black = (2, 4, 6, 8, 10, 11, 13, 15, 17, 
@@ -87,23 +92,15 @@ def spinFunc():
     if x == 0:
         print("Green, " + str(x))
 
-#Allows user to play again
-def playAgainFunc():
-    
-    playAgain = input("Play again? Y/N ")
-
-    playAgain == playAgain.lower()
-    
-    if playAgain in ("yes", "y"):
-        roulette()
-    else:
-        pass
-    
-
 #Roulette game
-def betFunc():
+def rouletteFunc():
+    
+    global betPrompt
+    betPrompt = input("Tubby Roulette - Color, Number, or Third? ")
 
-    if betPrompt == "color":
+    betPrompt = betPrompt.lower().strip()
+
+    if betPrompt == choiceList[0]:
         
         color = input("Which color would you like to bet on? ")
 
@@ -116,21 +113,21 @@ def betFunc():
             if x != 0:
                 colorLose()
 
-        if color == colorList[1]:
+        elif color == colorList[1]:
             betPriceFunc()            
             if x in black:
                 colorWin()
             else:
                 colorLose()
 
-        if color == colorList[2]:
+        elif color == colorList[2]:
             betPriceFunc()
             if x in red:
                 colorWin()
             else:
                 colorLose()
 
-    if betPrompt == "third":
+    if betPrompt == choiceList[1]:
         
         thirds = input("Which third would you like to bet on? ")
 
@@ -158,26 +155,53 @@ def betFunc():
                 thirdLose()
 
 
-    if betPrompt.lower() == "number":
+    if betPrompt.lower() == choiceList[2]:
         
         number = input("Which number would you like to bet on? ")
 
         number = number.strip()
         
-        if 36 >= int(number) >= 0:
-            betPriceFunc()
-            if x == int(number):
-                numberWin()
-            if x != int(number):
-                numberLose()
+        if number.isnumeric():
+            
+            if 36 < int(number):
+                print("Number is too high; pick a number from 0 to 36")
+                invalidFunc()
+            
+            if 36 >= int(number) >= 0:
+                betPriceFunc()
+                if x == int(number):
+                    numberWin()
+                if x != int(number):
+                    numberLose()
+            if 0 > int(number):
+                print("Number is too low; pick a number from 0 to 36")
+                invalidFunc()
+        else:
+            print(str(number) + " " + "is not numeric.")
+            invalidFunc()
+    
+    else:
+        invalidFunc()
+
+#Allows user to play again
+def playAgainFunc():
+    
+    playAgain = input("Play again? Y/N ")
+
+    playAgain == playAgain.lower().strip()
+    
+    if playAgain in ("yes", "y"):
+        rouletteFunc()
+    elif playAgain in ("no", "n"):
+        print("Cancelled.")
+    else:
+        playAgainFunc()
+        
     
 
 #INVALID OPTIONS
-    if betPrompt.lower() not in ["color", "number", "third"]:
-        tryAgain = input("Invalid selection, try again? Y/N ")
-        if tryAgain in ["yes", "y"]:
-            betFunc()
-        else:
-            print("Cancelled.")           
+    
+    if betPrompt.lower() not in choiceList:
+        invalidFunc()         
 
-roulette()
+rouletteFunc()
